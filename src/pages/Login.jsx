@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import api from '../utils/api.js';
 import { useAuth } from '../context/AuthContext.jsx';
+import Particles from '../components/Particles.jsx';
 
 const roleLabels = {
   user: 'Citizen',
@@ -40,11 +41,31 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen grid-bg flex items-center justify-center px-4">
+    <div className="min-h-screen relative flex items-center justify-center px-4 overflow-hidden">
+      {/* Particles background */}
+      <div className="absolute inset-0 z-0">
+        <Particles
+          particleCount={510}
+          particleSpread={15}
+          speed={0.1}
+          particleColors={['#ffffff', '#ffffff', '#ffffff']}
+          moveParticlesOnHover={false}
+          particleHoverFactor={3}
+          alphaParticles={false}
+          particleBaseSize={100}
+          sizeRandomness={1}
+          cameraDistance={20}
+          disableRotation={false}
+        />
+      </div>
+
+      {/* Gradient overlay for readability */}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-t from-[#0A0A0F]/90 via-[#0A0A0F]/40 to-transparent pointer-events-none" />
+
       <motion.div
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
-        className="glass-card max-w-md w-full p-8 relative overflow-hidden"
+        className="glass-card max-w-md w-full p-8 relative z-10 overflow-hidden"
       >
         <div className="absolute -top-24 -right-24 h-48 w-48 rounded-full bg-accentRed/30 blur-3xl" />
         <div className="absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-accentBlue/40 blur-3xl" />
@@ -70,8 +91,8 @@ const Login = () => {
                 type="button"
                 onClick={() => setRole(r)}
                 className={`flex-1 py-1.5 text-[11px] rounded-full font-medium uppercase tracking-[0.16em] transition ${role === r
-                    ? 'bg-accentRed text-white shadow-glow-red'
-                    : 'text-gray-300 hover:text-white'
+                  ? 'bg-accentRed text-white shadow-glow-red'
+                  : 'text-gray-300 hover:text-white'
                   }`}
               >
                 {roleLabels[r]}
